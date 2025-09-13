@@ -1,0 +1,1853 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeMaster - Plateforme d'apprentissage informatique</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #10b981;
+            --accent: #f59e0b;
+            --danger: #ef4444;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --info: #3b82f6;
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --bg-tertiary: #334155;
+            --text-primary: #f8fafc;
+            --text-secondary: #cbd5e1;
+            --text-muted: #64748b;
+            --border: #334155;
+            --glass-bg: rgba(30, 41, 59, 0.8);
+            --glass-border: rgba(99, 102, 241, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, var(--bg-primary) 0%, #1a2332 100%);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .animated {
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        .pulse {
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+            z-index: 1000;
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+        }
+
+        .header.scrolled {
+            background: rgba(15, 23, 42, 0.98);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.5rem;
+            font-weight: 800;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .logo i {
+            color: var(--primary);
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-item a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .nav-item a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            transition: width 0.3s ease;
+        }
+
+        .nav-item a:hover,
+        .nav-item a.active {
+            color: var(--text-primary);
+        }
+
+        .nav-item a:hover::after,
+        .nav-item a.active::after {
+            width: 100%;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.6);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, var(--success), #059669);
+            color: white;
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, var(--danger), #dc2626);
+            color: white;
+        }
+
+        .btn-warning {
+            background: linear-gradient(135deg, var(--warning), #d97706);
+            color: white;
+        }
+
+        .btn-small {
+            padding: 0.5rem 1rem;
+            font-size: 0.875rem;
+        }
+
+        /* Mobile menu */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: 2px solid var(--border);
+            color: var(--text-secondary);
+            border-radius: 8px;
+            padding: 0.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-top: 80px;
+        }
+
+        .section {
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 8rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 50% 50%, rgba(99, 102, 241, 0.1) 0%, transparent 70%);
+            z-index: -1;
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--text-primary), var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: var(--text-secondary);
+            margin-bottom: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-bottom: 4rem;
+            flex-wrap: wrap;
+        }
+
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .stat-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 2rem;
+            backdrop-filter: blur(20px);
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        /* Course Grid */
+        .course-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .course-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(20px);
+            position: relative;
+            cursor: pointer;
+        }
+
+        .course-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+        }
+
+        .course-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary);
+            box-shadow: 0 20px 40px rgba(99, 102, 241, 0.3);
+        }
+
+        .course-image {
+            height: 200px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .course-image::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.1) 50%, transparent 70%);
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+        }
+
+        .course-card:hover .course-image::before {
+            transform: translateX(100%);
+        }
+
+        .course-content {
+            padding: 2rem;
+        }
+
+        .course-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .course-description {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .course-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .course-level {
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .level-beginner {
+            background: rgba(16, 185, 129, 0.2);
+            color: var(--success);
+            border: 1px solid var(--success);
+        }
+
+        .level-intermediate {
+            background: rgba(245, 158, 11, 0.2);
+            color: var(--warning);
+            border: 1px solid var(--warning);
+        }
+
+        .level-advanced {
+            background: rgba(239, 68, 68, 0.2);
+            color: var(--danger);
+            border: 1px solid var(--danger);
+        }
+
+        .course-duration {
+            color: var(--text-muted);
+            font-size: 0.875rem;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .course-progress {
+            width: 100%;
+            height: 8px;
+            background: var(--bg-tertiary);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 1rem;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            transition: width 0.3s ease;
+        }
+
+        .course-rating {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .stars {
+            color: var(--warning);
+        }
+
+        .rating-text {
+            color: var(--text-muted);
+            font-size: 0.875rem;
+        }
+
+        /* Dashboard */
+        .dashboard {
+            display: grid;
+            gap: 2rem;
+        }
+
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .dashboard-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .dashboard-subtitle {
+            color: var(--text-secondary);
+            margin-top: 0.5rem;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .dashboard-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 2rem;
+            backdrop-filter: blur(20px);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .dashboard-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+        }
+
+        .dashboard-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: 0 15px 35px rgba(99, 102, 241, 0.3);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+        }
+
+        .icon-primary {
+            background: rgba(99, 102, 241, 0.2);
+            color: var(--primary);
+        }
+
+        .icon-success {
+            background: rgba(16, 185, 129, 0.2);
+            color: var(--success);
+        }
+
+        .icon-warning {
+            background: rgba(245, 158, 11, 0.2);
+            color: var(--warning);
+        }
+
+        .icon-danger {
+            background: rgba(239, 68, 68, 0.2);
+            color: var(--danger);
+        }
+
+        .icon-info {
+            background: rgba(59, 130, 246, 0.2);
+            color: var(--info);
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .card-subtitle {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        .card-value {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-top: 1rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Forms */
+        .form-container {
+            max-width: 500px;
+            margin: 0 auto;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 2rem;
+            backdrop-filter: blur(20px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .form-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+        }
+
+        .form-title {
+            text-align: center;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: var(--text-primary);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .form-input,
+        .form-select,
+        .form-textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+            background: var(--bg-tertiary);
+        }
+
+        .form-input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .input-icon {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+        }
+
+        /* Tables */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--glass-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            backdrop-filter: blur(20px);
+        }
+
+        .data-table thead {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+        }
+
+        .data-table th,
+        .data-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .data-table th {
+            color: white;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.875rem;
+        }
+
+        .data-table tr:hover {
+            background: rgba(99, 102, 241, 0.05);
+        }
+
+        .status-badge {
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .status-active {
+            background: rgba(16, 185, 129, 0.2);
+            color: var(--success);
+            border: 1px solid var(--success);
+        }
+
+        .status-pending {
+            background: rgba(245, 158, 11, 0.2);
+            color: var(--warning);
+            border: 1px solid var(--warning);
+        }
+
+        .status-inactive {
+            background: rgba(239, 68, 68, 0.2);
+            color: var(--danger);
+            border: 1px solid var(--danger);
+        }
+
+        .status-free {
+            background: rgba(100, 116, 139, 0.2);
+            color: var(--text-muted);
+            border: 1px solid var(--text-muted);
+        }
+
+        /* Notifications */
+        .notification {
+            position: fixed;
+            top: 100px;
+            right: 2rem;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            padding: 1rem 1.5rem;
+            backdrop-filter: blur(20px);
+            z-index: 1001;
+            min-width: 300px;
+            transform: translateX(400px);
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        .notification-success {
+            border-left: 4px solid var(--success);
+        }
+
+        .notification-error {
+            border-left: 4px solid var(--danger);
+        }
+
+        .notification-warning {
+            border-left: 4px solid var(--warning);
+        }
+
+        .notification-info {
+            border-left: 4px solid var(--info);
+        }
+
+        .notification-content {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .notification-icon {
+            font-size: 1.5rem;
+        }
+
+        .notification-text {
+            flex: 1;
+        }
+
+        .notification-close {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 1.2rem;
+            padding: 0.25rem;
+        }
+
+        /* Modals */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1002;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--bg-secondary);
+            border-radius: 16px;
+            padding: 2rem;
+            max-width: 600px;
+            width: 100%;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .modal-close:hover {
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+        }
+
+        /* Progress Bars */
+        .progress-container {
+            margin: 1rem 0;
+        }
+
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        .progress-bar-container {
+            width: 100%;
+            height: 10px;
+            background: var(--bg-tertiary);
+            border-radius: 5px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 5px;
+            transition: width 0.5s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        /* Code Editor */
+        .code-editor {
+            background: #1e1e1e;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            font-family: 'JetBrains Mono', monospace;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .editor-header {
+            background: #2d2d30;
+            padding: 1rem 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            border-bottom: 1px solid #3e3e42;
+        }
+
+        .editor-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            transition: transform 0.2s ease;
+        }
+
+        .editor-dot:hover {
+            transform: scale(1.2);
+        }
+
+        .dot-red { background: #ff5f56; }
+        .dot-yellow { background: #ffbd2e; }
+        .dot-green { background: #27ca3f; }
+
+        .editor-title {
+            margin-left: 1rem;
+            color: #d4d4d4;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .editor-content {
+            padding: 2rem;
+            color: #d4d4d4;
+            font-size: 0.875rem;
+            line-height: 1.8;
+            overflow-x: auto;
+        }
+
+        .code-line {
+            margin-bottom: 0.5rem;
+        }
+
+        .keyword { color: #569cd6; }
+        .string { color: #ce9178; }
+        .comment { color: #6a9955; }
+        .function { color: #dcdcaa; }
+        .variable { color: #9cdcfe; }
+
+        /* Learning Path */
+        .learning-path {
+            position: relative;
+            padding-left: 3rem;
+        }
+
+        .learning-path::before {
+            content: '';
+            position: absolute;
+            left: 1rem;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, var(--primary), var(--secondary));
+        }
+
+        .path-item {
+            position: relative;
+            margin-bottom: 2rem;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            backdrop-filter: blur(20px);
+        }
+
+        .path-item::before {
+            content: '';
+            position: absolute;
+            left: -2.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 1rem;
+            height: 1rem;
+            border-radius: 50%;
+            background: var(--primary);
+            border: 3px solid var(--bg-primary);
+        }
+
+        .path-item.completed::before {
+            background: var(--success);
+        }
+
+        .path-item.current::before {
+            background: var(--warning);
+            animation: pulse 2s infinite;
+        }
+
+        /* Certificates */
+        .certificate {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            color: white;
+        }
+
+        .certificate-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .certificate-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .certificate-course {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .certificate-date {
+            font-size: 0.875rem;
+            opacity: 0.8;
+        }
+
+        /* Search and Filters */
+        .search-filters {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            backdrop-filter: blur(20px);
+        }
+
+        .search-row {
+            display: flex;
+            gap: 1rem;
+            align-items: end;
+            flex-wrap: wrap;
+        }
+
+        .search-group {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .search-input {
+            position: relative;
+        }
+
+        .search-input input {
+            padding-left: 3rem;
+        }
+
+        .search-input .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-content {
+                padding: 0 1rem;
+            }
+
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--bg-secondary);
+                flex-direction: column;
+                padding: 1rem;
+                border-top: 1px solid var(--border);
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.125rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .section {
+                padding: 2rem 1rem;
+            }
+
+            .course-grid,
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .dashboard-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .search-row {
+                flex-direction: column;
+            }
+
+            .search-group {
+                min-width: 100%;
+            }
+
+            .modal-content {
+                margin: 1rem;
+                max-height: calc(100vh - 2rem);
+            }
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-secondary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, var(--primary-dark), var(--success));
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header" id="header">
+        <div class="header-content">
+            <div class="logo" onclick="showSection('home')">
+                <i class="fas fa-code"></i>
+                <span>CodeMaster</span>
+            </div>
+            
+            <nav>
+                <ul class="nav-menu" id="navMenu">
+                    <li class="nav-item"><a href="#" onclick="showSection('home')" class="nav-link active">Accueil</a></li>
+                    <li class="nav-item"><a href="#" onclick="showSection('courses')" class="nav-link">Cours</a></li>
+                    <li class="nav-item"><a href="#" onclick="showSection('learning-paths')" class="nav-link">Parcours</a></li>
+                    <li class="nav-item"><a href="#" onclick="showSection('forum')" class="nav-link">Forum</a></li>
+                    <li class="nav-item"><a href="#" onclick="showSection('about')" class="nav-link">À propos</a></li>
+                </ul>
+            </nav>
+
+            <div class="nav-buttons" id="navButtons">
+                <button class="theme-toggle" id="themeToggle" title="Changer de thème">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button class="btn btn-outline" onclick="showSection('login')">Connexion</button>
+                <button class="btn btn-primary" onclick="showSection('register')">Inscription</button>
+            </div>
+
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Home Section -->
+        <section id="homeSection" class="section animated">
+            <div class="hero">
+                <h1 class="hero-title">Maîtrisez le code avec CodeMaster</h1>
+                <p class="hero-subtitle">
+                    La plateforme d'apprentissage la plus avancée pour développeurs. 
+                    Cours interactifs, projets pratiques, quiz en temps réel et certification reconnue.
+                </p>
+                <div class="hero-buttons">
+                    <button class="btn btn-primary" onclick="showSection('courses')">
+                        <i class="fas fa-rocket"></i> Commencer maintenant
+                    </button>
+                    <button class="btn btn-outline" onclick="showSection('about')">
+                        <i class="fas fa-info-circle"></i> En savoir plus
+                    </button>
+                </div>
+                
+                <div class="hero-stats">
+                    <div class="stat-card pulse">
+                        <div class="stat-number" id="studentCount">15,247</div>
+                        <div class="stat-label">Étudiants actifs</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">200+</div>
+                        <div class="stat-label">Cours disponibles</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">98%</div>
+                        <div class="stat-label">Taux de réussite</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">24/7</div>
+                        <div class="stat-label">Support disponible</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Featured Courses Preview -->
+            <div style="margin-top: 6rem;">
+                <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 1rem; color: var(--text-primary);">
+                    Cours les plus populaires
+                </h2>
+                <p style="text-align: center; color: var(--text-secondary); font-size: 1.125rem; margin-bottom: 3rem;">
+                    Découvrez nos formations les plus demandées par les professionnels
+                </p>
+                <div class="course-grid">
+                    <div class="course-card" onclick="showCourseDetail(1)">
+                        <div class="course-image">
+                            <i class="fab fa-js-square"></i>
+                        </div>
+                        <div class="course-content">
+                            <h3 class="course-title">JavaScript Moderne et ES6+</h3>
+                            <p class="course-description">Maîtrisez les concepts modernes de JavaScript avec ES6, ES2017+ et les dernières fonctionnalités.</p>
+                            <div class="course-meta">
+                                <span class="course-level level-intermediate">Intermédiaire</span>
+                                <span class="course-duration">
+                                    <i class="fas fa-clock"></i> 24h
+                                </span>
+                            </div>
+                            <div class="course-rating">
+                                <div class="stars">★★★★★</div>
+                                <span class="rating-text">4.8 (2,847 étudiants)</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="course-card" onclick="showCourseDetail(2)">
+                        <div class="course-image">
+                            <i class="fab fa-python"></i>
+                        </div>
+                        <div class="course-content">
+                            <h3 class="course-title">Python pour la Data Science</h3>
+                            <p class="course-description">Analysez et visualisez des données avec Python, Pandas, NumPy, Matplotlib et Scikit-learn.</p>
+                            <div class="course-meta">
+                                <span class="course-level level-intermediate">Intermédiaire</span>
+                                <span class="course-duration">
+                                    <i class="fas fa-clock"></i> 32h
+                                </span>
+                            </div>
+                            <div class="course-rating">
+                                <div class="stars">★★★★★</div>
+                                <span class="rating-text">4.9 (1,923 étudiants)</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="course-card" onclick="showCourseDetail(3)">
+                        <div class="course-image">
+                            <i class="fab fa-react"></i>
+                        </div>
+                        <div class="course-content">
+                            <h3 class="course-title">React & Redux Masterclass</h3>
+                            <p class="course-description">Créez des applications web modernes avec React, Redux, hooks avancés et les meilleures pratiques.</p>
+                            <div class="course-meta">
+                                <span class="course-level level-advanced">Avancé</span>
+                                <span class="course-duration">
+                                    <i class="fas fa-clock"></i> 28h
+                                </span>
+                            </div>
+                            <div class="course-rating">
+                                <div class="stars">★★★★☆</div>
+                                <span class="rating-text">4.7 (3,241 étudiants)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Code Editor Demo -->
+            <div style="margin-top: 6rem; text-align: center;">
+                <h2 style="font-size: 2.5rem; margin-bottom: 1rem; color: var(--text-primary);">
+                    Éditeur de code intégré
+                </h2>
+                <p style="color: var(--text-secondary); font-size: 1.125rem; margin-bottom: 3rem;">
+                    Apprenez directement dans votre navigateur avec notre éditeur avancé
+                </p>
+                <div class="code-editor" style="max-width: 900px; margin: 0 auto;">
+                    <div class="editor-header">
+                        <div class="editor-dot dot-red"></div>
+                        <div class="editor-dot dot-yellow"></div>
+                        <div class="editor-dot dot-green"></div>
+                        <span class="editor-title">fibonacci.py</span>
+                    </div>
+                    <div class="editor-content">
+                        <div class="code-line"><span class="keyword">def</span> <span class="function">fibonacci</span>(<span class="variable">n</span>):</div>
+                        <div class="code-line">    <span class="comment">"""Calcule le n-ième nombre de Fibonacci"""</span></div>
+                        <div class="code-line">    <span class="keyword">if</span> <span class="variable">n</span> <= <span class="string">1</span>:</div>
+                        <div class="code-line">        <span class="keyword">return</span> <span class="variable">n</span></div>
+                        <div class="code-line">    </div>
+                        <div class="code-line">    <span class="variable">a</span>, <span class="variable">b</span> = <span class="string">0</span>, <span class="string">1</span></div>
+                        <div class="code-line">    <span class="keyword">for</span> <span class="variable">i</span> <span class="keyword">in</span> <span class="function">range</span>(<span class="string">2</span>, <span class="variable">n</span> + <span class="string">1</span>):</div>
+                        <div class="code-line">        <span class="variable">a</span>, <span class="variable">b</span> = <span class="variable">b</span>, <span class="variable">a</span> + <span class="variable">b</span></div>
+                        <div class="code-line">    <span class="keyword">return</span> <span class="variable">b</span></div>
+                        <div class="code-line"></div>
+                        <div class="code-line"><span class="comment"># Résultat: 55</span></div>
+                        <div class="code-line"><span class="function">print</span>(<span class="string">f"Fibonacci(10) = {fibonacci(10)}"</span>)</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Success Stories -->
+            <div style="margin-top: 6rem;">
+                <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 3rem; color: var(--text-primary);">
+                    Témoignages de nos étudiants
+                </h2>
+                <div class="dashboard-grid">
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <img src="https://placehold.co/60x60" alt="Portrait professionnel de Sarah, développeuse full-stack souriante" style="border-radius: 50%; width: 60px; height: 60px;">
+                            <div>
+                                <div class="card-title">Sarah M.</div>
+                                <div class="card-subtitle">Développeuse Full-Stack</div>
+                            </div>
+                        </div>
+                        <p style="color: var(--text-secondary); line-height: 1.6;">
+                            "Grâce à CodeMaster, j'ai pu passer de débutante à développeuse full-stack en 6 mois. 
+                            Les cours sont exceptionnels et le support est toujours disponible."
+                        </p>
+                        <div style="margin-top: 1rem; color: var(--warning);">
+                            ★★★★★
+                        </div>
+                    </div>
+                    
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <img src="https://placehold.co/60x60" alt="Portrait professionnel de Marc, data scientist confiant" style="border-radius: 50%; width: 60px; height: 60px;">
+                            <div>
+                                <div class="card-title">Marc D.</div>
+                                <div class="card-subtitle">Data Scientist</div>
+                            </div>
+                        </div>
+                        <p style="color: var(--text-secondary); line-height: 1.6;">
+                            "La qualité des cours Python et Data Science est impressionnante. 
+                            J'ai décroché mon poste actuel grâce aux compétences acquises sur CodeMaster."
+                        </p>
+                        <div style="margin-top: 1rem; color: var(--warning);">
+                            ★★★★★
+                        </div>
+                    </div>
+                    
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <img src="https://placehold.co/60x60" alt="Portrait professionnel d'Amina, ingénieure DevOps déterminée" style="border-radius: 50%; width: 60px; height: 60px;">
+                            <div>
+                                <div class="card-title">Amina K.</div>
+                                <div class="card-subtitle">DevOps Engineer</div>
+                            </div>
+                        </div>
+                        <p style="color: var(--text-secondary); line-height: 1.6;">
+                            "Les parcours d'apprentissage sont parfaitement structurés. 
+                            La progression est naturelle et les projets pratiques sont très enrichissants."
+                        </p>
+                        <div style="margin-top: 1rem; color: var(--warning);">
+                            ★★★★★
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="aboutSection" class="section hidden">
+            <div class="hero" style="padding: 4rem 2rem;">
+                <h1 class="hero-title" style="font-size: 3rem;">À propos de CodeMaster</h1>
+                <p class="hero-subtitle">
+                    Votre partenaire de confiance pour exceller dans le développement informatique
+                </p>
+            </div>
+
+            <div class="dashboard-grid">
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <div class="card-icon icon-primary">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <div>
+                            <div class="card-title">Notre Mission</div>
+                            <div class="card-subtitle">Démocratiser l'apprentissage du code</div>
+                        </div>
+                    </div>
+                    <p style="color: var(--text-secondary); line-height: 1.7;">
+                        CodeMaster a été créé avec pour mission de rendre l'apprentissage de la programmation 
+                        accessible à tous, peu importe le niveau de départ. Nous croyons que chacun peut 
+                        apprendre à coder avec les bonnes ressources et le bon accompagnement.
+                    </p>
+                </div>
+
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <div class="card-icon icon-success">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div>
+                            <div class="card-title">Notre Équipe</div>
+                            <div class="card-subtitle">Experts passionnés</div>
+                        </div>
+                    </div>
+                    <p style="color: var(--text-secondary); line-height: 1.7;">
+                        Notre équipe est composée de développeurs seniors, d'ingénieurs logiciels et 
+                        d'experts en pédagogie numérique. Tous partagent la même passion : 
+                        transmettre leurs connaissances et accompagner votre réussite.
+                    </p>
+                </div>
+
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <div class="card-icon icon-warning">
+                            <i class="fas fa-lightbulb"></i>
+                        </div>
+                        <div>
+                            <div class="card-title">Notre Approche</div>
+                            <div class="card-subtitle">Apprentissage pratique</div>
+                        </div>
+                    </div>
+                    <p style="color: var(--text-secondary); line-height: 1.7;">
+                        Nous privilégions l'apprentissage par la pratique avec des projets concrets, 
+                        des exercices interactifs et un suivi personnalisé. Chaque étudiant bénéficie 
+                        d'un parcours adapté à son rythme et à ses objectifs.
+                    </p>
+                </div>
+
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <div class="card-icon icon-info">
+                            <i class="fas fa-rocket"></i>
+                        </div>
+                        <div>
+                            <div class="card-title">Innovation Continue</div>
+                            <div class="card-subtitle">Technologies de pointe</div>
+                        </div>
+                    </div>
+                    <p style="color: var(--text-secondary); line-height: 1.7;">
+                        Nous investissons constamment dans les dernières technologies d'apprentissage : 
+                        IA pour la personnalisation, réalité virtuelle pour l'immersion, 
+                        et outils collaboratifs pour l'entraide communautaire.
+                    </p>
+                </div>
+
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <div class="card-icon icon-success">
+                            <i class="fas fa-certificate"></i>
+                        </div>
+                        <div>
+                            <div class="card-title">Certifications</div>
+                            <div class="card-subtitle">Reconnues par l'industrie</div>
+                        </div>
+                    </div>
+                    <p style="color: var(--text-secondary); line-height: 1.7;">
+                        Nos certifications sont reconnues par les principales entreprises tech. 
+                        Elles attestent de vos compétences réelles et augmentent significativement 
+                        vos chances d'obtenir le poste de vos rêves.
+                    </p>
+                </div>
+
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <div class="card-icon icon-primary">
+                            <i class="fas fa-globe"></i>
+                        </div>
+                        <div>
+                            <div class="card-title">Communauté Globale</div>
+                            <div class="card-subtitle">Plus de 50 pays</div>
+                        </div>
+                    </div>
+                    <p style="color: var(--text-secondary); line-height: 1.7;">
+                        Rejoignez une communauté mondiale de développeurs passionnés. 
+                        Échangez, collaborez et progressez ensemble dans un environnement 
+                        bienveillant et stimulant.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Courses Section -->
+        <section id="coursesSection" class="section hidden">
+            <div class="dashboard-header">
+                <div>
+                    <h1 class="dashboard-title">Catalogue des cours</h1>
+                    <div class="dashboard-subtitle">Découvrez notre collection complète de formations</div>
+                </div>
+                <button class="btn btn-primary" onclick="showSection('learning-paths')">
+                    <i class="fas fa-route"></i> Voir les parcours
+                </button>
+            </div>
+            
+            <!-- Search and Filters -->
+            <div class="search-filters">
+                <div class="search-row">
+                    <div class="search-group">
+                        <label class="form-label">Rechercher un cours</label>
+                        <div class="search-input">
+                            <input type="text" class="form-input" id="courseSearch" placeholder="JavaScript, Python, React...">
+                            <i class="fas fa-search search-icon"></i>
+                        </div>
+                    </div>
+                    <div class="search-group">
+                        <label class="form-label">Niveau</label>
+                        <select class="form-select" id="levelFilter">
+                            <option value="">Tous les niveaux</option>
+                            <option value="beginner">Débutant</option>
+                            <option value="intermediate">Intermédiaire</option>
+                            <option value="advanced">Avancé</option>
+                        </select>
+                    </div>
+                    <div class="search-group">
+                        <label class="form-label">Catégorie</label>
+                        <select class="form-select" id="categoryFilter">
+                            <option value="">Toutes les catégories</option>
+                            <option value="web">Développement Web</option>
+                            <option value="mobile">Développement Mobile</option>
+                            <option value="data">Data Science</option>
+                            <option value="ai">Intelligence Artificielle</option>
+                            <option value="devops">DevOps</option>
+                            <option value="security">Sécurité</option>
+                        </select>
+                    </div>
+                    <div class="search-group">
+                        <button class="btn btn-outline" onclick="clearFilters()">
+                            <i class="fas fa-times"></i> Effacer
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="course-grid" id="allCourses">
+                <!-- All courses will be loaded here by JavaScript -->
+            </div>
+        </section>
+
+        <!-- Learning Paths Section -->
+        <section id="learningPathsSection" class="section hidden">
+            <div class="dashboard-header">
+                <div>
+                    <h1 class="dashboard-title">Parcours d'apprentissage</h1>
+                    <div class="dashboard-subtitle">Des chemins structurés pour atteindre vos objectifs</div>
+                </div>
+            </div>
+
+            <div class="dashboard-grid">
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <div class="card-icon icon-primary">
+                            <i class="fab fa-html5"></i>
+                        </div>
+                        <div>
+                            <div class="card-title">Développeur Web Front-End</div>
+                            <div class="card-subtitle">6 mois • 8 cours • Débutant</div>
+                        </div>
+                    </div>
+                    <div class="progress-container">
+                        <div class="progress-label">
+                            <span>Progression</span>
+                            <span>30%</span>
+                        </div>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar-fill" style="width: 30%;"></div>
+                        </div>
+                    </div>
+                    <p style="color: var(--text-secondary); margin: 1rem 0;">
+                        Maîtrisez HTML, CSS, JavaScript et React pour créer des interfaces utilisateur modernes et interactives.
+                    </p>
+                    <div class="learning-path">
+                        <div class="path-item completed">
+                            <h4>HTML & CSS Fondamentaux</h4>
+                            <p>Bases du développement web</p>
+                        </div>
+                        <div class="path-item completed">
+                            <h4>JavaScript ES6+</h4>
+                            <p>Programmation moderne</p>
+                        </div>
+                        <div class="path-item current">
+                            <h4>React.js</h4>
+                            <p>Bibliothèque frontend</p>
+                        </div>
+                        <div class="path-item">
+                            <h4>Projet Portfolio</h4>
+                            <p>Application complète</p>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary" style="width: 100%; margin-top: 1rem;">Continuer le parcours</button>
+                </div>
+
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <div class="card-icon icon-success">
+                            <i class="fab fa-python"></i>
+                        </div>
+                        <div>
+                            <div class="card-title">Data Scientist</div>
+                            <div class="card-subtitle">8 mois • 12 cours • Intermédiaire</div>
+                        </div>
+                    </div>
+                    <div class="progress-container">
+                        <div class="progress-label">
+                            <span>Progression</span>
+                            <span>0%</span>
+                        </div>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar-fill" style="width: 0%;"></div>
+                        </div>
+                    </div>
+                    <p style="color: var(--text-secondary); margin: 1rem 0;">
+                        Analysez, visualisez et modélisez des données avec Python, pandas, scikit-learn et TensorFlow.
+                    </p>
+                    <button class="btn btn-success" style="width: 100%; margin-top: 1rem;">Commencer le parcours</button>
+                </div>
+
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <div class="card-icon icon-warning">
+                            <i class="fab fa-docker"></i>
+                        </div>
+                        <div>
+                            <div class="card-title">DevOps Engineer</div>
+                            <div class="card-subtitle">10 mois • 15 cours • Avancé</div>
+                        </div>
+                    </div>
+                    <div class="progress-container">
+                        <div class="progress-label">
+                            <span>Progression</span>
+                            <span>0%</span>
+                        </div>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar-fill" style="width: 0%;"></div>
+                        </div>
+                    </div>
+                    <p style="color: var(--text-secondary); margin: 1rem 0;">
+                        Automatisez le déploiement et la gestion d'infrastructures avec Docker, Kubernetes et CI/CD.
+                    </p>
+                    <button class="btn btn-warning" style="width: 100%; margin-top: 1rem;">Commencer le parcours</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Forum Section -->
+        <section id="forumSection" class="section hidden">
+            <div class="dashboard-header">
+                <div>
+                    <h1 class="dashboard-title">Forum communautaire</h1>
+                    <div class="dashboard-subtitle">Échangez avec plus de 15,000 développeurs</div>
+                </div>
+                <button class="btn btn-primary" onclick="createNewTopic()">
+                    <i class="fas fa-plus"></i> Nouvelle discussion
+                </button>
+            </div>
+            
+            <div class="dashboard-grid">
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <div class="card-icon icon-primary">
+                            <i class="fab fa-js"></i>
+                        </div>
+                        <div>
+                            <div class="card-title">JavaScript & React</div>
+                            <div class="card-subtitle">3,247 discussions • 12,543 messages</div>
+                        </div>
+                    </div>
+                    <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">
+                        Questions et discussions sur JavaScript moderne, React, Vue.js et les frameworks frontend.
+                    </p>
+                    <div style="display: flex; gap: 1rem; margin-bottom: 1rem;">
+                        <div style="color: var(--success); font-size: 0.875rem;">
+                            <i class="fas fa-arrow-up"></i> 234 aujourd'hui
+                        </div>
+                        <div style="color: var(--info); font-size: 0.875rem;">
+                            <i class="fas fa-users"></i> 1,247 actifs
+                        </div>
+                    </div>
+                    <button class="btn btn-outline">Participer</button>
+                </div>
+                
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <div class="card-icon icon-success">
+                            <i class="fab fa-python"></i>
+                        </div>
+                        <div>
+                            <div class="card-title">Python & Data Science</div>
+                            <div class="card-subtitle">2,891 discussions • 9,876 messages</div>
+                        </div>
+                    </div>
+                    <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">
+                        Tout sur Python, data science, machine learning et intelligence artificielle.
+                    </p>
+                    <div style="display: flex; gap: 1rem; margin-bottom: 1rem;">
+                        <div style="color: var(--success); font-size: 0.875rem;">
+                            <i class="fas fa-arrow-up"></i> 187 aujourd'hui
+                        </div>
+                        <div style="color: var(--info); font-size: 0.875rem;">
+                            <i class="fas fa-users"></i> 892 actifs
+                        </div>
+                    </div>
+                    <button class="btn btn-outline">Participer</button>
+                </div>
+                
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <div class="card-icon icon-warning">
+                            <i class="fas fa-server"></i>
+                        </div>
+                        <div>
+                            <div class="card-title">Backend & DevOps</div>
+                            <div class="card-subtitle">1,654 discussions • 6,234 messages</div>
+                        </div>
+                    </div>
+                    <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">
+                        Architecture backend, bases de données, cloud, Docker, Kubernetes et CI/CD.
+                    </p>
+                    <div style="display: flex; gap: 1rem; margin-bottom: 1rem;">
+                        <div style="color: var(--success); font-size: 0.875rem;">
+                            <i class="fas fa-arrow-up"></i> 98 aujourd'hui
+                        </div>
+                        <div style="color: var(--info); font-size: 0.875rem;">
+                            <i class="fas fa-users"></i> 567 actifs
+                        </div>
+                    </div>
+                    <button class="btn btn-outline">Participer</button>
+                </div>
+            </div>
+
+            <!-- Recent Discussions -->
+            <div style="margin-top: 4rem;">
+                <h2 style="font-size: 2rem; margin-bottom: 2rem; color: var(--text-primary);">
+                    Discussions récentes
+                </h2>
+                <div class="dashboard-card">
+                    <div style="overflow-x: auto;">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Sujet</th>
+                                    <th>Auteur</th>
+                                    <th>Réponses</th>
+                                    <th>Dernière activité</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div style="font-weight: 600; color: var(--text-primary);">Comment optimiser les performances React ?</div>
+                                        <div style="font-size: 0.875rem; color: var(--text-muted);">React • Performance</div>
+                                    </td>
+                                    <td>
+                                        <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                            <img src="https://placehold.co/30x30" alt="Avatar utilisateur du forum" style="border-radius: 50%; width: 30px; height: 30px;">
+                                            <span>Alex M.</span>
+                                        </div>
+                                    </td>
+                                    <td><span style="color: var(--primary);">12</span></td>
+                                    <td style="color: var(--text-muted);">Il y a 2h</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div style="font-weight: 600; color: var(--text-primary);">Meilleurs pratiques Python pour ML</div>
+                                        <div style="font-size: 0.875rem; color: var(--text-muted);">Python • Machine Learning</div>
+                                    </td>
+                                    <td>
+                                        
