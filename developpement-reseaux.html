@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberSec Academy - Développement & Réseaux</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/developpement-reseaux.css">
+</head>
+<body>
+    <!-- Header -->
+<!-- Header -->
+<header class="header">
+    <div class="header-content">
+        <a href="index.html" class="logo">
+            <i class="fas fa-shield-alt"></i>
+            <span>Academy</span>
+        </a>
+        
+        
+        <!-- Menu Burger -->
+        <button class="menu-toggle" id="menuToggle">
+            <i class="fas fa-bars"></i>
+        </button>
+        
+        <nav class="nav" id="mainNav">
+            <div class="nav-header">
+                <div class="logo mobile-logo">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>Academy</span>
+                </div>
+                <button class="close-menu" id="closeMenu">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Cybersécurité</a>
+                <a href="developpement-reseaux.html" class="nav-link">Développement & Réseaux</a>
+                <a href="quiz.html" class="nav-link">Quiz Gratuits</a>
+            </div>
+            
+            <div class="nav-footer">
+                <a href="#contact" class="contact-btn mobile-contact-btn">
+                    <i class="fab fa-whatsapp"></i>
+                    Support WhatsApp
+                </a>
+            </div>
+        </nav>
+
+                <!-- Contact bouton pour desktop -->
+        <a href="#contact" class="contact-btn desktop-contact-btn">
+            <i class="fab fa-whatsapp"></i>
+            Support
+        </a>
+        
+        <!-- Overlay pour mobile -->
+        <div class="nav-overlay" id="navOverlay"></div>
+    </div>
+</header>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Développement & Réseaux</h1>
+            <p>Maîtrisez les technologies du développement web, mobile et de l'administration réseau. Devenez un expert polyvalent en informatique.</p>
+        </div>
+    </section>
+
+    <!-- Formations Section -->
+    <section class="formations-section">
+        <div class="section-title">
+            <h2>Formations Développement & Réseaux</h2>
+            <p>Choisissez parmi nos formations expertes en développement et administration réseau</p>
+        </div>
+
+        <!-- Category Filter -->
+        <div class="category-filter">
+            <button class="category-btn active" onclick="filterFormations('all')">Toutes</button>
+            <button class="category-btn" onclick="filterFormations('dev')">Développement</button>
+            <button class="category-btn" onclick="filterFormations('reseau')">Réseaux</button>
+            <button class="category-btn" onclick="filterFormations('fullstack')">Full Stack</button>
+        </div>
+
+        <!-- Formations Grid -->
+        <div class="formation-grid" id="formationsGrid">
+            <!-- Formation 1 - Développement -->
+            <div class="formation-card" data-category="dev">
+                <div class="formation-image dev-image">
+                    <img src="images/js.jpg" alt="JavaScript">
+                </div>
+                <div class="formation-content">
+                    <h3 class="formation-title">JavaScript Moderne & Frameworks</h3>
+                    <span class="formation-category">Développement Web</span>
+                    <div class="formation-price">5,000 FCFA</div>
+                    <p class="formation-description">
+                        Maîtrisez JavaScript ES6+, React, Vue.js et Node.js. Créez des applications web modernes et dynamiques. Apprenez les concepts avancés comme les promesses, async/await et les architectures SPA.
+                    </p>
+                    <ul class="formation-features">
+                        <li><i class="fas fa-check"></i> 45 heures de vidéos</li>
+                        <li><i class="fas fa-check"></i> 15 projets pratiques</li>
+                        <li><i class="fas fa-check"></i> Accès communauté Discord</li>
+                        <li><i class="fas fa-check"></i> Support personnalisé</li>
+                    </ul>
+                    <button class="btn" onclick="openPaymentModal('JavaScript Moderne & Frameworks', 5000)">
+                        <i class="fas fa-shopping-cart"></i>
+                        Acheter cette formation
+                    </button>
+                </div>
+            </div>
+
+            <!-- Formation 2 - Réseaux -->
+            <div class="formation-card" data-category="reseau">
+                <div class="formation-image reseau-image">
+                    <img src="images/adminreseau.jpg" alt="admin reseau">
+                </div>
+                <div class="formation-content">
+                    <h3 class="formation-title">Administration Réseau Cisco CCNA</h3>
+                    <span class="formation-category">Réseaux & Infrastructure</span>
+                    <div class="formation-price">5,000 FCFA</div>
+                    <p class="formation-description">
+                        Préparez la certification CCNA. Apprenez à configurer, dépanner et sécuriser des réseaux d'entreprise. Maîtrisez le routage, la commutation, les VLANs et les protocoles réseaux essentiels.
+                    </p>
+                    <ul class="formation-features">
+                        <li><i class="fas fa-check"></i> 60 heures de formation</li>
+                        <li><i class="fas fa-check"></i> Labs Cisco Packet Tracer</li>
+                        <li><i class="fas fa-check"></i> Préparation certification</li>
+                        <li><i class="fas fa-check"></i> Accès simulateurs</li>
+                    </ul>
+                    <button class="btn" onclick="openPaymentModal('Administration Réseau Cisco CCNA', 5000)">
+                        <i class="fas fa-shopping-cart"></i>
+                        Acheter cette formation
+                    </button>
+                </div>
+            </div>
+
+            <!-- Formation 3 - Full Stack -->
+            <div class="formation-card" data-category="fullstack">
+                <div class="formation-image dev-image">
+                    <img src="images/mern.jpg" alt="stack mern">
+                </div>
+                <div class="formation-content">
+                    <h3 class="formation-title">Développement Full Stack MERN</h3>
+                    <span class="formation-category">Full Stack</span>
+                    <div class="formation-price">5,000 FCFA</div>
+                    <p class="formation-description">
+                        Devenez développeur Full Stack avec MongoDB, Express, React et Node.js. Créez des applications web complètes, des APIs RESTful et déployez vos projets sur le cloud.
+                    </p>
+                    <ul class="formation-features">
+                        <li><i class="fas fa-check"></i> 50 heures intensives</li>
+                        <li><i class="fas fa-check"></i> 3 projets réels</li>
+                        <li><i class="fas fa-check"></i> Déploiement AWS</li>
+                        <li><i class="fas fa-check"></i> Portfolio GitHub</li>
+                    </ul>
+                    <button class="btn" onclick="openPaymentModal('Développement Full Stack MERN', 5000)">
+                        <i class="fas fa-shopping-cart"></i>
+                        Acheter cette formation
+                    </button>
+                </div>
+            </div>
+
+            <!-- Formation 4 - Réseaux -->
+            <div class="formation-card" data-category="reseau">
+                <div class="formation-image reseau-image">
+                    <img src="images/linux.jpg" alt="linux">
+                </div>
+                <div class="formation-content">
+                    <h3 class="formation-title">Sécurité & Administration Linux</h3>
+                    <span class="formation-category">Réseaux & Systèmes</span>
+                    <div class="formation-price">5,000 FCFA</div>
+                    <p class="formation-description">
+                        Maîtrisez Linux comme un professionnel. Administration système, scripts Bash, sécurité, services réseaux (DHCP, DNS, Apache) et virtualisation avec Docker.
+                    </p>
+                    <ul class="formation-features">
+                        <li><i class="fas fa-check"></i> 40 heures pratiques</li>
+                        <li><i class="fas fa-check"></i> Environnement Docker</li>
+                        <li><i class="fas fa-check"></i> Scripting Bash avancé</li>
+                        <li><i class="fas fa-check"></i> Monitoring Nagios</li>
+                    </ul>
+                    <button class="btn" onclick="openPaymentModal('Sécurité & Administration Linux', 5000)">
+                        <i class="fas fa-shopping-cart"></i>
+                        Acheter cette formation
+                    </button>
+                </div>
+            </div>
+
+            <!-- Formation 5 - Développement -->
+            <div class="formation-card" data-category="dev">
+                <div class="formation-image dev-image">
+                    <img src="images/python.jpg" alt="python">
+                </div>
+                <div class="formation-content">
+                    <h3 class="formation-title">Python & Automatisation</h3>
+                    <span class="formation-category">Développement & Scripting</span>
+                    <div class="formation-price">5,000 FCFA</div>
+                    <p class="formation-description">
+                        Apprenez Python pour l'automatisation, le scripting système et le développement backend. Créez des scripts d'automatisation, des APIs et des outils d'administration.
+                    </p>
+                    <ul class="formation-features">
+                        <li><i class="fas fa-check"></i> 35 heures de contenu</li>
+                        <li><i class="fas fa-check"></i> Automatisation réseau</li>
+                        <li><i class="fas fa-check"></i> Web scraping</li>
+                        <li><i class="fas fa-check"></i> APIs Flask & Django</li>
+                    </ul>
+                    <button class="btn" onclick="openPaymentModal('Python & Automatisation', 5000)">
+                        <i class="fas fa-shopping-cart"></i>
+                        Acheter cette formation
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quiz Link -->
+        <div class="quiz-link">
+            <h3>Testez vos connaissances gratuitement !</h3>
+            <p>Participez à nos quiz interactifs sur le développement et les réseaux. Gagnez des points et comparez votre niveau avec la communauté.</p>
+            <a href="quiz.html" class="quiz-btn">
+                <i class="fas fa-gamepad"></i>
+                Jouer aux quiz gratuits
+            </a>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+        <div class="contact-content">
+            <h2 class="contact-title">Besoin d'aide pour votre achat ?</h2>
+            <p class="contact-text">
+                Notre équipe est disponible pour vous accompagner dans le processus de paiement 
+                et répondre à toutes vos questions techniques.
+            </p>
+            
+            <div class="contact-info">
+                <div class="contact-item">
+                    <i class="fab fa-whatsapp"></i>
+                    <a href="https://wa.me/2250711041528" target="_blank">+225 07 11 04 15 28</a>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <a href="mailto:contact@cybersec-academy.com">contact@cybersec-academy.com</a>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-clock"></i>
+                    <span>Support disponible 7j/7 de 8h à 22h</span>
+                </div>
+            </div>
+            
+            <a href="https://wa.me/2250711041528" class="whatsapp-btn" target="_blank">
+                <i class="fab fa-whatsapp"></i>
+                Contacter le support WhatsApp
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <div class="logo">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>CyberSec Academy</span>
+                    </div>
+                    <p style="color: #94a3b8; margin-top: 1rem;">
+                        Formations expertes en cybersécurité, développement et réseaux.
+                    </p>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Catégories</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Cybersécurité</a></li>
+                        <li><a href="developpement-reseaux.html">Développement</a></li>
+                        <li><a href="developpement-reseaux.html">Réseaux</a></li>
+                        <li><a href="quiz.html">Quiz Gratuits</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Support</h3>
+                    <ul class="footer-links">
+                        <li><a href="#contact">Contact</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Guide d'achat</a></li>
+                        <li><a href="#">Mentions légales</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 CyberSec Academy. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal Paiement Manuel -->
+    <div id="manualPaymentModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Paiement Manuel</h3>
+                <button class="close-modal" onclick="closeManualModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h4 style="margin-bottom: 1.5rem; color: var(--darker);" id="modalFormationTitle"></h4>
+                
+                <div style="margin-bottom: 1.5rem;">
+                    <p style="color: var(--gray); margin-bottom: 1rem;">
+                        Sélectionnez votre méthode de paiement :
+                    </p>
+                    
+                    <div class="payment-method" onclick="selectManualPayment('wave')" id="waveOption">
+                        <div class="payment-icon wave">
+                            <i class="fas fa-mobile-alt"></i>
+                        </div>
+                        <div>
+                            <h4>Wave</h4>
+                            <p style="color: var(--gray); font-size: 0.9rem;">Transfert via l'application Wave</p>
+                        </div>
+                    </div>
+                    
+                    <div class="payment-method" onclick="selectManualPayment('mtn')" id="mtnOption">
+                        <div class="payment-icon mtn">
+                            <i class="fas fa-sim-card"></i>
+                        </div>
+                        <div>
+                            <h4>MTN Mobile Money</h4>
+                            <p style="color: var(--gray); font-size: 0.9rem;">Transfert via MTN Money</p>
+                        </div>
+                    </div>
+                    
+                    <div class="payment-method" onclick="selectManualPayment('orange')" id="orangeOption">
+                        <div class="payment-icon orange">
+                            <i class="fas fa-money-bill-wave"></i>
+                        </div>
+                        <div>
+                            <h4>Orange Money</h4>
+                            <p style="color: var(--gray); font-size: 0.9rem;">Transfert via Orange Money</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="paymentInstructions" style="display: none;">
+                    <!-- Les instructions seront injectées ici -->
+                </div>
+                
+                <div id="confirmationSection" style="margin-top: 2rem; padding: 1.5rem; background: #f8f9fa; border-radius: 8px; display: none;">
+                    <h4 style="margin-bottom: 1rem; color: var(--darker);">
+                        <i class="fas fa-clipboard-check"></i> Confirmer votre paiement
+                    </h4>
+                    <p style="color: var(--gray); margin-bottom: 1.5rem;">
+                        Après avoir effectué le transfert, cliquez sur "Confirmer le dépôt" pour nous envoyer une notification via WhatsApp.
+                    </p>
+                    <button class="btn" onclick="confirmPayment()" style="width: 100%;">
+                        <i class="fab fa-whatsapp"></i> Confirmer le dépôt
+                    </button>
+                </div>
+                
+                <div style="margin-top: 1.5rem; text-align: center;">
+                    <p style="color: var(--gray); font-size: 0.9rem;">
+                        <i class="fas fa-info-circle"></i> Vous recevrez l'accès à la formation dans les 15 minutes après confirmation.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification -->
+    <div id="notification" class="notification">
+        <div class="notification-content">
+            <i class="fas fa-check-circle"></i>
+            <span id="notificationText"></span>
+        </div>
+    </div>
+
+    <script src="js/developpementReseau.js"></script>
+    <script src="js/navbar.js"></script>
+</body>
+</html>

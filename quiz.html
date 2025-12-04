@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberSec Academy - Quiz Gratuits</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="css/quiz.css">
+</head>
+<body>
+    <!-- Header -->
+<!-- Header -->
+<header class="header">
+    <div class="header-content">
+        <a href="index.html" class="logo">
+            <i class="fas fa-shield-alt"></i>
+            <span>Academy</span>
+        </a>
+        
+
+        
+        <!-- Menu Burger -->
+        <button class="menu-toggle" id="menuToggle">
+            <i class="fas fa-bars"></i>
+        </button>
+        
+        <nav class="nav" id="mainNav">
+            <div class="nav-header">
+                <div class="logo mobile-logo">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>Academy</span>
+                </div>
+                <button class="close-menu" id="closeMenu">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Cybersécurité</a>
+                <a href="developpement-reseaux.html" class="nav-link">Développement & Réseaux</a>
+                <a href="quiz.html" class="nav-link">Quiz Gratuits</a>
+            </div>
+            
+            <div class="nav-footer">
+                <a href="#contact" class="contact-btn mobile-contact-btn">
+                    <i class="fab fa-whatsapp"></i>
+                    Support WhatsApp
+                </a>
+            </div>
+        </nav>
+
+                <!-- Contact bouton pour desktop -->
+        <a href="#contact" class="contact-btn desktop-contact-btn">
+            <i class="fab fa-whatsapp"></i>
+            Support
+        </a>
+        
+        <!-- Overlay pour mobile -->
+        <div class="nav-overlay" id="navOverlay"></div>
+    </div>
+</header>
+
+    <!-- Quiz Hero -->
+    <section class="quiz-hero">
+        <div class="container">
+            <div class="quiz-hero-content animate-on-scroll">
+                <h1>Quiz Gratuits - Testez vos Connaissances</h1>
+                <p>Défiez-vous avec nos quiz interactifs en cybersécurité, développement et réseaux. Apprenez en vous amusant !</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quiz Section -->
+    <section class="quiz-section">
+        <div class="container">
+            <div class="section-title animate-on-scroll">
+                <h2>Quiz Disponibles</h2>
+                <p>Sélectionnez un quiz et commencez à jouer immédiatement</p>
+            </div>
+
+            <!-- Quiz Stats -->
+            <div class="quiz-stats animate-on-scroll">
+                <div class="stat-card float-animation" style="animation-delay: 0.1s">
+                    <div class="stat-number" id="totalQuizzes">8</div>
+                    <div class="stat-label">Quiz disponibles</div>
+                </div>
+                <div class="stat-card float-animation" style="animation-delay: 0.2s">
+                    <div class="stat-number" id="totalPlayers">1,254</div>
+                    <div class="stat-label">Joueurs actifs</div>
+                </div>
+                <div class="stat-card float-animation" style="animation-delay: 0.3s">
+                    <div class="stat-number" id="avgScore">72%</div>
+                    <div class="stat-label">Score moyen</div>
+                </div>
+                <div class="stat-card float-animation" style="animation-delay: 0.4s">
+                    <div class="stat-number" id="questionsCount">120</div>
+                    <div class="stat-label">Questions totales</div>
+                </div>
+            </div>
+
+            <!-- Quiz Grid -->
+            <div class="quiz-grid">
+                <!-- Quiz 1 - Cybersécurité -->
+                <div class="quiz-card animate-on-scroll">
+                    <div class="quiz-category cyber-category">Cybersécurité</div>
+                    <div class="quiz-icon">
+                        <i class="fas fa-user-secret"></i>
+                    </div>
+                    <h3 class="quiz-title">Hacking Éthique - Niveau Débutant</h3>
+                    <p class="quiz-description">
+                        Testez vos connaissances sur les bases du hacking éthique, les types d'attaques et les bonnes pratiques de sécurité.
+                    </p>
+                    <div class="quiz-meta">
+                        <span><i class="fas fa-question-circle"></i> 15 questions</span>
+                        <span><i class="fas fa-clock"></i> 10 minutes</span>
+                        <span><i class="fas fa-trophy"></i> 100 pts max</span>
+                    </div>
+                    <button class="quiz-btn" onclick="startQuiz('cyber-beginner')">
+                        <i class="fas fa-play-circle"></i>
+                        Commencer le quiz
+                    </button>
+                </div>
+
+                <!-- Quiz 2 - Développement -->
+                <div class="quiz-card animate-on-scroll">
+                    <div class="quiz-category dev-category">Développement</div>
+                    <div class="quiz-icon">
+                        <i class="fab fa-js"></i>
+                    </div>
+                    <h3 class="quiz-title">JavaScript - Les Bases</h3>
+                    <p class="quiz-description">
+                        Quiz sur les fondamentaux de JavaScript : variables, fonctions, boucles et manipulation du DOM.
+                    </p>
+                    <div class="quiz-meta">
+                        <span><i class="fas fa-question-circle"></i> 12 questions</span>
+                        <span><i class="fas fa-clock"></i> 8 minutes</span>
+                        <span><i class="fas fa-trophy"></i> 80 pts max</span>
+                    </div>
+                    <button class="quiz-btn" onclick="startQuiz('js-basics')">
+                        <i class="fas fa-play-circle"></i>
+                        Commencer le quiz
+                    </button>
+                </div>
+
+                <!-- Quiz 3 - Réseaux -->
+                <div class="quiz-card animate-on-scroll">
+                    <div class="quiz-category reseau-category">Réseaux</div>
+                    <div class="quiz-icon">
+                        <i class="fas fa-network-wired"></i>
+                    </div>
+                    <h3 class="quiz-title">Réseaux TCP/IP</h3>
+                    <p class="quiz-description">
+                        Quiz sur le modèle TCP/IP, les adresses IP, les sous-réseaux et les protocoles fondamentaux.
+                    </p>
+                    <div class="quiz-meta">
+                        <span><i class="fas fa-question-circle"></i> 10 questions</span>
+                        <span><i class="fas fa-clock"></i> 7 minutes</span>
+                        <span><i class="fas fa-trophy"></i> 70 pts max</span>
+                    </div>
+                    <button class="quiz-btn" onclick="startQuiz('tcp-ip')">
+                        <i class="fas fa-play-circle"></i>
+                        Commencer le quiz
+                    </button>
+                </div>
+
+                <!-- Quiz 4 - Cybersécurité Avancé -->
+                <div class="quiz-card animate-on-scroll">
+                    <div class="quiz-category cyber-category">Cybersécurité</div>
+                    <div class="quiz-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3 class="quiz-title">Sécurité Web - OWASP Top 10</h3>
+                    <p class="quiz-description">
+                        Testez vos connaissances sur les 10 vulnérabilités web les plus critiques selon OWASP.
+                    </p>
+                    <div class="quiz-meta">
+                        <span><i class="fas fa-question-circle"></i> 15 questions</span>
+                        <span><i class="fas fa-clock"></i> 12 minutes</span>
+                        <span><i class="fas fa-trophy"></i> 100 pts max</span>
+                    </div>
+                    <button class="quiz-btn" onclick="startQuiz('owasp')">
+                        <i class="fas fa-play-circle"></i>
+                        Commencer le quiz
+                    </button>
+                </div>
+
+                <!-- Quiz 5 - Python -->
+                <div class="quiz-card animate-on-scroll">
+                    <div class="quiz-category dev-category">Développement</div>
+                    <div class="quiz-icon">
+                        <i class="fab fa-python"></i>
+                    </div>
+                    <h3 class="quiz-title">Python pour la Cybersécurité</h3>
+                    <p class="quiz-description">
+                        Quiz sur l'utilisation de Python dans la cybersécurité : scripts d'automatisation, analyse de logs, etc.
+                    </p>
+                    <div class="quiz-meta">
+                        <span><i class="fas fa-question-circle"></i> 10 questions</span>
+                        <span><i class="fas fa-clock"></i> 8 minutes</span>
+                        <span><i class="fas fa-trophy"></i> 75 pts max</span>
+                    </div>
+                    <button class="quiz-btn" onclick="startQuiz('python-cyber')">
+                        <i class="fas fa-play-circle"></i>
+                        Commencer le quiz
+                    </button>
+                </div>
+
+                <!-- Quiz 6 - Linux -->
+                <div class="quiz-card animate-on-scroll">
+                    <div class="quiz-category reseau-category">Systèmes</div>
+                    <div class="quiz-icon">
+                        <i class="fas fa-terminal"></i>
+                    </div>
+                    <h3 class="quiz-title">Commandes Linux Essentielles</h3>
+                    <p class="quiz-description">
+                        Quiz sur les commandes Linux indispensables pour l'administration système et la sécurité.
+                    </p>
+                    <div class="quiz-meta">
+                        <span><i class="fas fa-question-circle"></i> 12 questions</span>
+                        <span><i class="fas fa-clock"></i> 9 minutes</span>
+                        <span><i class="fas fa-trophy"></i> 85 pts max</span>
+                    </div>
+                    <button class="quiz-btn" onclick="startQuiz('linux-cmds')">
+                        <i class="fas fa-play-circle"></i>
+                        Commencer le quiz
+                    </button>
+                </div>
+            </div>
+
+            <!-- Active Quiz Area -->
+            <div id="activeQuiz" class="quiz-active" style="display: none;">
+                <!-- Le contenu du quiz actif sera inséré ici par JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <div class="logo">
+                        <div class="logo-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <span class="logo-text">CyberSec Academy</span>
+                    </div>
+                    <p style="color: #94a3b8; margin-top: 1.5rem;">
+                        Testez vos connaissances gratuitement avec nos quiz interactifs.
+                    </p>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Catégories Quiz</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Cybersécurité</a></li>
+                        <li><a href="#">Développement</a></li>
+                        <li><a href="#">Réseaux</a></li>
+                        <li><a href="#">Systèmes</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Ressources</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Formations</a></li>
+                        <li><a href="developpement-reseaux.html">Cours</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Communauté</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 CyberSec Academy. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+    <script src="js/quizz.js"></script>
+    <script src="js/navbar.js"></script>
+</body>
+</html>
